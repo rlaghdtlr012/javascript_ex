@@ -51,7 +51,7 @@
         <div class="card p-3">
             <span>상품명 : <span class="car-title"></span></span>
             <span>가격 : <span class="car-price"></span></span>
-        </div>
+        </div> 
     </div>
     <script>
         var car = ['소나타', 50000, 'white'];
@@ -62,20 +62,68 @@
         //car2.price = 60000; car2 자료수정
         //console.log(car2['name']); 소나타만 출력
     </script>
+    <form class="container my-5 form-group">
+        <p>상품선택</p>
+        <select class="form-select mt-2">
+          <option>모자</option>
+          <option>셔츠</option>
+          <option>바지</option>
+        </select>
+        <select class="form-select mt-2">
+            <option>S</option>
+            <option>M</option>
+            <option>L</option>
+        </select>
+        <!-- <select class="form-select mt-2 form-hide">
+            <option>90</option>
+            <option>95</option>
+            <option>100</option>
+        </select> -->
+    </form>
+    <script>
+        var pantpant = [20, 30, 32, 34];
+        var hat = '<option>S</option><option>M</option><option>L</option>'
+        var shirt = '<option>90</option><option>95</option><option>100</option>'
+        var pants = '<option>28</option><option>30</option>'
+        $('.form-select').eq(0).on('input', function(e){
+            var value = e.currentTarget.value; // this.value;
+            if(value== '모자'){
+                $('.form-select').eq(1).html(hat);
+            } else if(value =='셔츠'){
+                $('.form-select').eq(1).html(shirt);
+            } else if(value == '바지'){
+                $('.form-select').eq(1).html(pants);
+            }
+        });
+        // pantpant.forEach(function(a, i){ // a == pantpant 안에 있던 데이터, i == 1씩 증가하는 숫자 
+        //     $('.form-select').eq(1).append(`<option>${a}</option>`); // 바지의 데이터 갯수만큼 옵션 추가
+        // });
+    </script>
+    <div id="test">
+        <h4>반가워</h4>
+    </div>
+    <script>
+        var 템플릿 = '<p>안녕</p>';
+        document.querySelector('#test').insertAdjacentHTML('beforeend', 템플릿); // test인 곳에 문자형 HTML을 넣어주는 함수 (맨끝에)
+        $('#test').append(템플릿);
+        var a = document.createElement('p');
+        a.innerHTML = "안녕";
+        document.querySelector('#test').appendChild(a); //자바스크립트로 html 생성법
+    </script>
     <div class="container mt-5">
-    <ul class="list">
-        <li class="tab-button" data-id="0">Products</li>
-        <li class="tab-button orange" data-id="1">Information</li>
-        <li class="tab-button" data-id="2">Shipping</li>
-    </ul>
-    <div class="tab-content">
-        <p>상품설명입니다. Product</p>
-    </div>
-    <div class="tab-content show">
-        <p>스펙설명입니다. Information</p>
-    </div>
-    <div class="tab-content">
-        <p>배송정보입니다. Shipping</p>
+        <ul class="list">
+            <li class="tab-button" data-id="0">Products</li>
+            <li class="tab-button orange" data-id="1">Information</li>
+            <li class="tab-button" data-id="2">Shipping</li>
+        </ul>
+        <div class="tab-content">
+            <p>상품설명입니다. Product</p>
+        </div>
+        <div class="tab-content show">
+            <p>스펙설명입니다. Information</p>
+        </div>
+        <div class="tab-content">
+            <p>배송정보입니다. Shipping</p>
     </div>
     </div> 
     <script src="tab.js"></script>

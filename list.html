@@ -9,49 +9,182 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   </head>
   <body>
-    <div class="card-group container">
-        <div class="card">
-          <img src="https://via.placeholder.com/600">
-          <div class="card-body">
-            <h5 class = "card-title">Card title</h5>
-            <p class = "card-price">가격 : 70000</p>
-            <button class="btn btn-danger">주문하기</button>
-          </div>
-        </div>
-        <div class="card">
-          <img src="https://via.placeholder.com/600">
-          <div class="card-body">
-            <h5 class = "card-title">Card title</h5>
-            <p class = "card-price">가격 : 70000</p>
-            <button class="btn btn-danger">주문하기</button>
-          </div>
-        </div>
-        <div class="card">
-          <img src="https://via.placeholder.com/600">
-          <div class="card-body">
-            <h5 class = "card-title">Card title</h5>
-            <p class = "card-price">가격 : 70000</p>
-            <button class="btn btn-danger">주문하기</button>
-          </div>
+    <div class="container">
+        <div class="row">
+            <!-- <div class="col-sm-4">
+              <img src="https://via.placeholder.com/600" class="w-100">
+              <h5>Card title</h5>
+              <p>가격 : 70000</p>
+            </div> -->
         </div>
     </div>
+    <div class="container">
+        <button class="btn btn-danger" id="more">더보기</button>
+    </div>
+    <div class="container my-3">
+        <button class="btn btn-danger" id="price">가격순 정렬</button>
+    </div>
+    <div class="container my-3">
+        <button class="btn btn-danger" id="reverseTitle">상품명 역순 정렬</button>
+    </div>
+    <div class="container my-3">
+        <button class="btn btn-danger" id="sixWon">6만원 이하 상품만 정렬</button>
+    </div>
     <script>
+        var count = 0;
         var products = [
             { id : 0, price : 70000, title : 'Blossom Dress' },
             { id : 1, price : 50000, title : 'Springfield Shirt' },
             { id : 2, price : 60000, title : 'Black Monastery' }
         ];
+        // map() 함수 : 어레이 자료를 전부 변형시켜줄 수 있음
+        // var array = [7,3,5,2,40];
+        // var newarray = array.map(function(a){
+        //    return a * 4; // 조건식 : 원래 있던 자료에 4를 곱해서 나온다. --> [28, 12, 20, 8, 160]
+        // });
+        // filter()함수 : array에서 원하는 자료만 필터링 하려면
+        // var array = [7,3,5,2,40];
+        // var newarray = array.filter(function(a){
+        //    return a < 4; // 조건식 : 4 미만의 자료만 남긴다. --> 3, 2
+        // });
+        // filter 함수는 원래 배열을 변화시켜주는 것이 아니기 때문에 filter 결과값을 변수에 저장해서 써야함.
+        // var 어레이 = [7,3,5,2,40];
+        // 오름차순 정렬
+        // 어레이.sort(function(a,b){
+        //     return a-b
+        // });
+        // var 어레이2 = ['a','c','b'];
+        // 어레이2.sort(function(a,b){
+        //     return a - b
+        // });
+        // console.log(어레이2);
+        // var 어레이 = ['cherry', 'apple', 'banana'];
+        // 어레이.sort();
+        // 어레이.reverse();
+        // console.log(어레이);
         for(let i = 0; i < products.length; i++){
-            document.querySelectorAll('.card-body h5')[i].innerHTML =  products[i].title;
-            document.querySelectorAll('.card-body p')[i].innerHTML = "가격 : " + products[i].price;
+            var cardTemplate = `<div class="col-sm-4">
+              <img src="https://via.placeholder.com/600" class="w-100">
+              <h5>${products[i].title}</h5>
+              <p>가격 : ${products[i].price}</p>
+            </div>`;
+            $('.row').append(cardTemplate);
         }
+        $('#more').on('click', function(){
+            count++;
+            console.log(count);
+            if(count == 1){
+                $.get('https://codingapple1.github.io/js/more1.json').done(function(data){
+                for(let i = 0; i < data.length; i++){
+                    var cardTemplate = `<div class="col-sm-4">
+                    <img src="https://via.placeholder.com/600" class="w-100">
+                    <h5>${data[i].title}</h5>
+                    <p>가격 : ${data[i].price}</p>
+                    </div>`;
+                    $('.row').append(cardTemplate); 
+                }
+               });
+            } else if(count == 2){
+                $.get('https://codingapple1.github.io/js/more2.json').done(function(data){
+                    for(let i = 0; i <data.length; i++){
+                        var cardTemplate = `<div class="col-sm-4">
+                        <img src="https://via.placeholder.com/600" class="w-100">
+                        <h5>${data[i].title}</h5>
+                        <p>가격 : ${data[i].price}</p>
+                        </div>`;
+                        $('.row').append(cardTemplate); 
+                    }
+                });
+                document.querySelector('.btn').style.display = 'none';
+            }
+        });
+        // 가격순 정렬
+        $('#price').on('click', function(){
+            products.sort(function(a, b){
+                return a.price - b.price;
+            });
+            $('.row').html(''); // .row에 있는 html 다 지우고, 가격 순으로 재정렬
+            for(let i = 0; i < products.length; i++){
+                var cardTemplate = `<div class="col-sm-4">
+                <img src="https://via.placeholder.com/600" class="w-100">
+                <h5>${products[i].title}</h5>
+                <p>가격 : ${products[i].price}</p>
+                </div>`;
+                $('.row').append(cardTemplate);
+            }
+        });
+        // 상품명 역순 정렬
+        $('#reverseTitle').on('click', function(){
+            $('.row').html('');
+            products.sort(function(a,b){
+                if(a.title < b.title){
+                    return 1;
+                }
+                if(a.title > b.title){
+                    return -1;
+                }
+                return 0;
+            });
+            for(let i = 0; i < products.length; i++){
+                var cardTemplate = `<div class="col-sm-4">
+                <img src="https://via.placeholder.com/600" class="w-100">
+                <h5>${products[i].title}</h5>
+                <p>가격 : ${products[i].price}</p>
+                </div>`;
+                $('.row').append(cardTemplate);
+            }
+        });
+        // 6만원 이하 상품만 정렬
+        $('#sixWon').on('click',function(){
+            $('.row').html('');
+            var six = products.filter(function(a){
+                return a.price <= 60000;
+            })
+            for(let i = 0; i < six.length; i++){
+                var cardTemplate = `<div class="col-sm-4">
+                <img src="https://via.placeholder.com/600" class="w-100">
+                <h5>${six[i].title}</h5>
+                <p>가격 : ${six[i].price}</p>
+                </div>`;
+                $('.row').append(cardTemplate);
+            }
+        });
         // var a = "안녕";
         // console.log(`문자 ${a} 문자`); 백틱을 이용한 문자열 사이에 변수값 넣기
         // for(let i = 0; i < products.length; i++){
         //     document.querySelectorAll('.card-title')[i].innerHTML = products[i].title;
         //     document.querySelectorAll('.card-price')[i].innerHTML = products[i].price;
         // }
-    </script> 
+    </script>
+    <script>
+        //jQuery 이용해서 ajax get, post 요청 방법
+        // $.get('https://codingapple1.github.io/hello.txt').done(function(data){
+        //     console.log(data);
+        //     console.log(1);
+        // });
+        // $.post('https://codingapple1.github.io/hello.txt', {name : 'kim'}).done(function(data){
+        //     console.log(1);
+        // })
+        // .fail(function(){
+        //     console.log('실패함');
+        // })
+        // $.get('https://codingapple1.github.io/price.json').done(function(data){
+        //     console.log(data.price);
+        // })
+        // .fail(function(){
+        //     console.log('실패함');
+        // })
+
+        // //쌩자바스크립트로 ajax 요청
+        // fetch('https://codingapple1.github.io/price.json')
+        // .then(res => res.json())
+        // .then(function(data){
+        //     console.log(data)
+        // })
+        // .catch(function(error){
+        //     console.log('실패함')
+        // });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
   </body>
 </html>

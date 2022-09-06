@@ -78,5 +78,37 @@
         console.log(함수(70,false));
         console.log(함수(10,true));
     </script>
+    <script>
+        var 출석부 = ['흥민', '영희', '철수', '재석'];
+        function 이름찾기(p){
+            출석부.forEach(function(a){
+                if(a == p) {
+                    console.log('있어요');
+                }
+            });
+        }
+        이름찾기('철수');
+        이름찾기('명수');
+        for(let i = 2; i <= 9; i++){
+            for(let j = 1; j <= 9; j++){
+                console.log(i*j);
+            }
+        }
+        
+        function 함수(array,avg){
+            var sum = 0;
+            array.forEach(function(a){
+                sum += a;
+            });
+            var avgthis = parseInt(sum/(array.length));
+            if(avgthis > avg){
+                console.log(`평균보다 ${avgthis-avg}점이 올랐네요`);
+            } else if(avgthis < avg){
+                console.log(`평균보다 ${avg-avgthis}점이 떨어졌네요 재수추천`);
+            }
+        }
+        함수([10, 20, 30, 40, 50], 40);
+        함수([40, 40, 40], 20);
+    </script>
 </body>
 </html>
