@@ -18,7 +18,7 @@
             </div> -->
         </div>
     </div>
-    <div class="container">
+    <div class="container my-3">
         <button class="btn btn-danger" id="more">더보기</button>
     </div>
     <div class="container my-3">
@@ -62,14 +62,52 @@
         // 어레이.sort();
         // 어레이.reverse();
         // console.log(어레이);
+        
         for(let i = 0; i < products.length; i++){
             var cardTemplate = `<div class="col-sm-4">
               <img src="https://via.placeholder.com/600" class="w-100">
               <h5>${products[i].title}</h5>
               <p>가격 : ${products[i].price}</p>
+              <button class="buy">구매</button>
             </div>`;
             $('.row').append(cardTemplate);
         }
+        //로컬 스토리지에 배열도 같이 저장하기
+        // var arr = [1, 2, 3];
+        // var newArr = JSON.stringify(arr); // 문자열은 json 형식으로 바꿔주는 함수
+        // localStorage.setItem('num', newArr);
+        // // JSON을 이용해서 배열인 자료 꺼내기
+        // var 꺼낸거 = localStorage.getItem('num');
+        // JSON.parse(꺼낸거);
+        // localStorage.removeItem('num');
+        // //로컬 스토리지에 데이터 저장하기
+        // localStorage.setItem('이름','kim');
+        // localStorage.getItem('이름'); //저장해놓은 자료 뽑기 
+        // localStorage.removeItem('이름'); //자료 삭제하기
+
+        $('.buy').on('click', function(e){
+            var title = $(e.target).siblings('h5').text();
+            //e.target.previousElementSibling.previousElementSibling;
+            if(localStorage.getItem('cart') != null){
+                var 꺼낸거 = JSON.parse(localStorage.getItem('cart'));
+                꺼낸거.push(title);
+                localStorage.setItem('cart', JSON.stringify(꺼낸거));
+            }else{
+                localStorage.setItem('cart', JSON.stringify([title]));
+            }
+
+            // var buy = document.getElementsByClassName('buy');
+            // var presib = buy.previousSibling;
+            // var 상품이름 = presib.previousSibling;
+            // if(localStorage.getItem('cart') == ''){
+            //     localStorage.setItem('cart', 상품이름);
+            // } else {
+            //     var 카트에서꺼낸거 = localStorage.getItem('cart');
+            //     JSON.parse(카트에서꺼낸거);
+            //     카트에서꺼낸거.append(상품이름);
+            //     localStorage.setItem(카트에서꺼낸거);
+            // }
+        });
         $('#more').on('click', function(){
             count++;
             console.log(count);
