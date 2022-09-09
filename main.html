@@ -119,7 +119,7 @@
     <div style="overflow: hidden">
       <div class="slide-container">
         <div class="slide-box">
-          <img src="./src/car1.png">
+          <img src="./src/car1.png" draggable="false">
         </div>
         <div class="slide-box">
           <img src="./src/car2.png">
@@ -129,6 +129,69 @@
         </div>
       </div>
     </div>
+    
+    <script>
+      // 마우스 잡아끄는 거에 따라서 사진을 넘길지말지
+      // mousedown : 마우스로 누를 때, mouseup : 마우스를 뗄 때, mousemove : 마우스 움직일 때
+      var mouseStart;
+      var mouseEnd;
+      var 눌렀냐 = false;
+      $('.slide-box').eq(0).on('mousedown', function(e){
+        mouseStart = e.clientX; // 마우스로 누른 시점의 마우스의 X좌표
+        눌렀냐 = true;
+      });
+      $('.slide-box').eq(0).on('mouseup', function(e){
+        눌렀냐 = false;
+        console.log(e.clientX-mouseStart);
+        if(e.clientX-mouseStart < -500){
+          $('.slide-container').css('transition', 'all 0.5s');
+          $('.slide-container').css('transform', 'translateX(-100vw)');
+        }
+        else{
+          $('.slide-container').css('transition', 'all 0.5s');
+          $('.slide-container').css('transform', 'translateX(0vw)');
+        }
+        // 실행한 다음 0.5초에 걸쳐서 transition 옵션을 없애주세요
+        setTimeout(function(){
+            $('.slide-container').css('transition', 'none')
+        }, 500);
+      });
+      $('.slide-box').eq(0).on('mousemove',function(e){
+        if(눌렀냐 == true){
+            $('.slide-container').css('transform', `translateX(${e.clientX-mouseStart}px)`);
+        }
+      });
+      // 모바일 버전 터치 잡아끄는 거에 따라서 사진을 넘길지말지
+      // touchdown :터치 할 때, touchup : 터치 뗄 때, touchmove : 터치 움직일 때
+      var touchStart;
+      var toucheEnd;
+      var 눌렀냐 = false;
+      $('.slide-box').eq(0).on('touchstart', function(e){
+        touchStart = e.touches[0].clientX; // 터치한 시점의 X좌표 왜냐하면 터치는 여러 군데에서 할 수 있기 때문
+        눌렀냐 = true;
+      });
+      $('.slide-box').eq(0).on('touchend', function(e){
+        눌렀냐 = false;
+        console.log(e.clientX-touchStart);
+        if(e.clientX-touchStart < -500){
+          $('.slide-container').css('transition', 'all 0.5s');
+          $('.slide-container').css('transform', 'translateX(-100vw)');
+        }
+        else{
+          $('.slide-container').css('transition', 'all 0.5s');
+          $('.slide-container').css('transform', 'translateX(0vw)');
+        }
+        // 실행한 다음 0.5초에 걸쳐서 transition 옵션을 없애주세요
+        setTimeout(function(){
+            $('.slide-container').css('transition', 'none')
+        }, 500);
+      });
+      $('.slide-box').eq(0).on('touchmove',function(e){
+        if(눌렀냐 == true){
+            $('.slide-container').css('transform', `translateX(${e.clientX-touchStart}px)`);
+        }
+      });
+    </script>
     <button class="slide-1">1</button>
     <button class="slide-2">2</button>
     <button class="slide-3">3</button>
@@ -210,7 +273,7 @@
         } else {
           $('.navbar-brand').css('font-size', '30px');
         }
-        document.querySelector('.topBox').style.width = scroll;
+        // document.querySelector('.topBox').style.width = scroll;
       });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
