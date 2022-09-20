@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>매우 쉽게 이해하는 javascript 객체지향 & ES6 신문법 강의 예제파일</title>
+</head>
+<body>
+    <script>
+        var pants = 0;
+        var socks = 100;
+        `바지${pants} 양말${socks}`;
+        function 해체분석기(문자열, ...변수들){
+            if(변수들[0] === 0){
+                console.log('바지 다 팔렸어용');
+            }
+            else{ 
+                console.log(문자열[1] + 변수들[1] +  문자열[0] + 변수들[0]);
+            }
+        }
+        해체분석기`바지${pants} 양말${socks}`;
+
+
+        function 더하기 (a, b, c){
+            console.log(a+b+c);
+        }
+        var aaa = [10, 20, 30, 40];
+        더하기(...aaa);
+        
+        function 임시함수(){
+            return 10
+        }
+
+        function 더하기(a,b = 임시함수()){
+            console.log(a + b);
+        }
+        더하기(1);
+
+        function 함수(a,b,c){
+            for(let i = 0; i < arguments.length; i++){
+                console.log(arguments[i]);
+            }
+        }
+        function 함수2(...rest){ //rest 파라미터
+            console.log(rest);
+        }
+        함수2(1,2,3,3,4,5,56,7,);
+    </script>
+</body>
+</html>
