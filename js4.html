@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>매우 쉽게 이해하는 javascript 객체지향 & ES6 신문법 강의 예제파일(3)</title>
+</head>
+<body>
+    <script>
+        // var 사람 = {
+        //     name : 'Park',
+        //     age : 30,
+        //     get nextAge(){ // getter
+        //         return this.age + 1
+        //     },
+        //     // 나이변경함수 같은 거를 쓰면 안전장치 역할을 할 수 있다.
+        //     set setAge(나이){ // setter 키워드 있으면 밑에서 함수 이용할때 괄호 필요없음
+        //         this.age = parseInt(나이);
+        //     }
+        // }
+        // 사람.setAge = '20'; // set 키워드를 이용하여 소괄호 없이 사람의 나이를 200으로 만들어줌
+        // 사람.nextAge; // get 키워드를 쓰면 소괄호 없이도 함수를 사용할 수 있음
+        
+        // getter와 setter를 사용한 class 상태 바꾸기
+        class 사람 {
+            constructor(){
+                this.name = 'Park';
+                this.age = 20;
+            }
+            get nextAge(){
+                return this.age + 1;
+            }
+            set setAge(나이){
+                this.age = parseInt(나이);
+            }
+        }
+        var 사람1 = new 사람();
+        console.log(사람1.nextAge);
+        console.log(사람1.setAge = 300);
+        console.log(사람1.nextAge);
+    </script>
+</body>
+</html>

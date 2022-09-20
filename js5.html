@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>매우 쉽게 이해하는 javascript 객체지향 & ES6 신문법 강의 예제파일(3). get, set 예제파일</title>
+</head>
+<body>
+    <script>
+        // 예제 1
+        class 강아지{
+            constructor(type, color){
+                this.type = type;
+                this.color = color;
+            }
+        }
+        var 강아지1 = new 강아지('말티즈','white');
+        var 강아지2 = new 강아지('진돗개','brown');
+
+
+        // 예제2, 3
+        class 고양이 extends 강아지 {
+            constructor(type, color, age){
+                super(type, color);
+                this.age = age;
+            }
+            get nextAge(){
+                return this.age+1;
+            }
+        }
+        var 고양이1 = new 고양이('코숏', 'white', 5);
+        var 고양이2 = new 고양이('러시안블루', 'brown', 2);
+        console.log(강아지1.nextAge);
+        console.log(고양이1.nextAge);
+
+        // 예제 4
+        class Unit{
+            constructor(){
+                this.ad = 5;
+                this.hp = 100;
+            }
+            get battlePoint() { 
+                return this.ad + this.hp;
+            }
+            set heal(heal){
+                this.hp += heal;
+            }
+        }
+        var 인스턴스 = new Unit();
+        console.log(인스턴스.battlePoint);
+        인스턴스.heal = 80;
+        console.log(인스턴스.hp);
+        console.log(인스턴스.battlePoint);
+
+
+        //예제 5
+        var data = {
+            odd : [],
+            even : [],
+            setter함수 : function(...숫자){
+                for(let i = 0; i < 숫자.length; i++){
+                    if(숫자[i]%2 == 0){
+                        this.even.push(숫자[i]);
+                    }
+                    else{ 
+                        this.odd.push(숫자[i]);
+                    }
+                }
+            },
+            get getter함수(){
+                this.odd.sort();
+                this.even.sort();
+                return this;
+            }
+        }
+
+        data.setter함수(5,4,3,2,1);
+        console.log(data.getter함수);
+    </script>
+</body>
+</html>

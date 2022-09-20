@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>매우 쉽게 이해하는 javascript 객체지향 & ES6 신문법 강의 예제파일(2)</title>
+</head>
+<body>
+    <script>
+        function Student(name, age){
+            this.name = name;
+            this.age = age;
+            this.sayHi = function(){
+                console.log('안녕 나는 ' + this.name + '이야');
+            }
+        }
+        var 학생1 = new Student('Kim', 20);
+        var 학생2 = new Student('Park', 21);
+        var 학생3 = new Student('Lee', 22);
+        학생1.sayHi();
+
+        //ES5 방식으로 쉽게 구현하는 상속기능
+        // var 부모 = { name : 'Kim', age : 50 };
+        // var 자식 = Object.create(부모); // 부모의 프로토타입을 자식에게 적용시켜서 쓸 수 있다.
+        // console.log(자식); // {} // 왜냐하면 자식의 요소를 따로 정의해준적이 없기 때문에
+        // console.log(자식.name); // 'Kim' // 자식의 프로토타입을 부모로 두고 있기 때문에
+        // // js에서는 우선 본인의 prototype을 찾아보고, 없으면 부모의 prototype으로 올라가서 요소들을 살펴본다.
+        // 자식.age = 20;
+        // console.log(자식); // {age : 20}
+        // var 손자 = Object.create(자식); // 자식을 prototype으로 하는 object 손자를 만든다.
+        // console.log(손자); // {} // 왜냐하면 손자의 요소를 따로 정의해준적이 없기 때문에
+        // console.log(손자.age) // 20 // 자식의 나이 prototype인 20이 나온다.
+
+
+
+        // ES6 방식으로 안쉽게 구현하는 상속기능
+        class 부모 {
+            constructor(age){
+                this.name = 'Kim';
+                this.age = age;
+                // this.sayHi = function(){
+                //     console.log('hello');
+                // }
+            }
+            sayHi(){
+                console.log('hello'); // 부모의 prototype에 속하는 함수임
+            }
+        }
+        var 자식 = new 부모(25); // ES6에서의 Object 복사 문법
+        자식.sayHi();
+
+        console.log(자식.__proto__); // == 부모의 prototype
+        Object.getPrototypeOf(자식); // == 자식 오브젝트의 부모 오브젝트의 prototype을 출력해줘라
+
+
+        // 상속의 상속, class를 복사하는 extends/ super
+        class 할아버지 {
+            constructor(이름){
+                this.성 = 'Kim';
+                this.이름 = 이름;
+            }
+            sayHi(){
+                console.log('안녕 저는 할아버지예요');
+            }
+        }
+        // var 할아버지1 = new 할아버지('만덕');
+        
+        
+        class 아버지 extends 할아버지 {
+            constructor(이름){
+                super(이름); // == this.이름 = 이름;
+                // constructor 안의 super는 constructor(이름){this.성 = 'Kim';this.이름 = 이름;}
+                // 위에 할아버지의 constructor와 같은 의미임
+                this.나이 = 50; // super 없이는 this 그냥 못씀
+            }
+            sayHi(){
+                console.log('안녕 저는 아버지예요');
+                // super.sayHi(); 할아버지 클래스에 있던 sayHi를 상속받는다. ==> 안녕 저는 아버지예요 안녕 저는 할아버지예요
+            }
+        }
+        var 아버지1 = new 아버지('만수');
+        console.log(아버지1.sayHi()); // 안녕 저는 아버지예여 // 나랑 가까운 프로토타입을 출력해줌
+        console.log(아버지1);
+
+    </script>
+</body>
+</html>
