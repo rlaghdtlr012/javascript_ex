@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>매우 쉽게 이해하는 javascript 객체지향 & ES6 신문법 강의 예제파일(5)</title>
+</head>
+<body>
+    <script>
+        // Destructing 문법
+        var obj = { name : 'Kim', age : 30};
+        var name = obj.name;
+        var age = obj.age;
+        // 변수명을 key명과 똑같이 써야한다.
+        var {name, age} = { name : 'Kim', age : 30}; // name에는 name이, age에는 age가 들어감
+        var name = 'Kim';
+        var age = 30;
+        var obj = { name : name, age : age}; // 이거랑 밑에거랑 같은 의미
+        var obj = { name, age }; // 오브젝트의 키값, value값이 작명이 같다면 이거처럼 해도 됨
+        function 함수({name, age}){ // 함수는 파라미터 변수로 name이랑 age 두 가지를 받겠다. 
+            console.log({name, age});
+        }
+        함수({name : 'Kim', age : 30});
+        let 신체정보 = {
+            body : {
+                height : 190,
+                weight : 70
+            },
+            size : ["상의 Large", "바지 30인치"]
+        };
+        let a = [신체정보.body.height, 신체정보.body.weight, 신체정보.size[0], 신체정보.size[1]];
+        console.log(a);
+    </script> 
+    <script type = "module">
+        import {a, b} from './library.js'; // a를 '~~' 경로에서 가져온다
+        console.log(a);
+        console.log(b);
+    </script>
+    <script>
+        import c, * as 별명 from './library.js';
+        console.log(c);
+        console.log(별명.a);
+        console.log(별명.b);
+    </script>
+    <script>
+        var 프로미스 = new Promise(function(resolve, reject){
+            //var 어려운연산 = 1+1;
+            //resolve(어려운연산); // 무조건 성공 판정 내리게 한 후, "어려운연산"을 변수로 전달함. then을 실행시킴
+            //reject(); // 무조건 실패 판정 내리게함. catch를 실행시킴
+            setTimeout(function(){
+                resolve();
+            }, 1000); // 1초뒤에 성공판정을 내려서 1초뒤에 then 안에 함수 실행해줌
+        }); // 성공 실패 판정기계임!! 콜백함수랑 비슷한 기능+a기능
+        프로미스.then(function(){
+            //포로미스가 성공일 경우 실행할 코드
+        }).catch(function(){
+            //프로미스가 실패했을 경우 실행할 코드
+        }).finally(function(){
+            //성공하든 실패하든 실행할 코드
+        })
+    </script>
+</body>
+</html>
