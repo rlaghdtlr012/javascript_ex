@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>매우 쉽게 이해하는 javascript 객체지향 & ES6 신문법 강의 예제파일(7)</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <script>
+        /*
+            forEach() 반복문 : Array 전용
+            for in 반복문 : Object 전용
+            for of 반복문 : iterable 전용(Array, 문자, arguments, NodeList, Map, Set등에 쓸 수 있음)
+        */
+        class 부모 {
+
+        }
+        부모.prototype.name = 'Park';
+
+        var 오브젝트 = new 부모();
+        // Object.getOwnPropertyDescriptor(오브젝트, 'name'); // name 속성의 특징?을 출력해줌
+        // enumerable : 셀 수 있는
+        for(var key in 오브젝트){
+            console.log(오브젝트[key]);
+        }
+        // enumerable == 셀 수 없는
+        var array1 = [2,3,4,5];
+
+        for(var 자료 of array1){ // 자료 : array1의 하나하나의 데이터
+            console.log(자료); // 2 3 4 5
+        }
+        var array2 = [2,3,4,5,6,7,8,9];
+        var array3 = [1,2,3,4,5,6,7,8,9];
+        for(var 숫자1 of array2){
+            for(var 숫자2 of array3){
+                console.log( 숫자1+' * '+숫자2+' = '+숫자1*숫자2);
+            }
+        }
+
+        // symbol은 오브젝트에 입력은 되지만, for문을 통해서 출력이 되지는 않는
+        // 비밀스러운 정보를 저장하는데 쓰인다.
+        // 심볼의 설명이 같다고 해서 같은 심볼이 아니다.
+        var address = Symbol('주소 심볼 형태로 비밀로 설정');
+        var person = { name : 'Kim', [address] : '서초' /*이것도 심볼 사용법*/ };
+        var height = Symbol('내 키인데 비밀임');
+        person[height] = 174; 
+        for(var key in person){
+            console.log(person[key]);
+        }
+    </script>
+</body>
+</html>

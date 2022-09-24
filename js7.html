@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>매우 쉽게 이해하는 javascript 객체지향 & ES6 신문법 강의 예제파일(6)</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <img id="test" src="https://codingapple1.github.io/kona.jpg"> 
+    <button id="btn">버튼</button>
+    <script>
+        //문제1 : 이미지 로딩 여부에 따라 로딩 성공, 실패 띄워주는 예제
+        var imageLoading = new Promise(function(resolve, reject){
+            var img = document.querySelector('#test');
+            img.addEventListener('load', function(){
+                resolve(); //이미지 로딩이 성공하면 이 코드
+            });
+
+            var img = document.querySelector('#test');
+            img.addEventListener('error', function(){
+                reject(); //이미지 로딩이 실패하면 이 코드
+            });
+        });
+
+        imageLoading.then(function(){
+            console.log('로딩성공');
+        }).catch(function(){
+            console.log('로딩실패');
+        })
+        // 문제2 : ajax로 파일 받아오기
+        var 프로미스 = new Promise(function(resolve, reject){
+            $.get('https://codingapple1.github.io/hello.txt')
+            .done(function(결과){
+                console.log(결과);
+            });
+        });
+        
+        프로미스.then(function(결과){
+            console.log(결과);
+            return new Promise(function(resolve,reject){
+                $.get('https://codingapple1.github.io/hello2.txt')
+                .done(function(결과){
+                    resolve(결과);
+                });
+            });
+        }).then(function(결과){
+            console.log(결과);
+        })
+
+
+
+        // plus 함수를 먼저 실행해준 후, 콜백 함수를 순차적으로 실행시켜주는 코드
+        // async는 Promise랑 사실상 같은 기능(근데 성공 판정밖에 못함) 실패판정 해주려면 57번째줄
+        async function plus(/*콜백*/){
+            return 1+1;
+            //return Promise.reject('실패임')
+            //콜백();
+        }
+        // 1   2번 순서로 실행 
+        plus().then(function(결과){
+            console.log(결과);
+            console.log('성공입니다.');
+        })
+
+
+        // async function 더하기(){
+        //     var 프로미스 = new Promise(function(성공, 실패){
+        //         var 힘든연산 = 300+300+300;
+        //         성공(힘든연산);
+        //     });
+        //     try{
+        //         var 결과 = await 프로미스;
+        //         console.log(결과);
+        //     } catch{
+        //         console.log('프로미스 연산이 잘안되었군요'); // await은 실패가 안되기 때문에 실패를 인식하지 못해 catch문 안에 코드가 실행된다.
+        //     }
+        // }
+
+        // 더하기();
+
+
+
+
+
+        // 버튼 클릭 성공하는 Promise(async와 await를 이용하는)
+        // 성공하면 콘솔창에 "성공했어요"
+            var btnPromise = new Promise(function(resolve, reject){
+                document.getElementById('btn').addEventListener('click',function(){
+                    resolve();
+                });
+            })
+            async function buttonClick(){
+                try {
+                    var 결과 = await btnPromise;
+                    console.log('버튼 클릭 성공했어요');
+                } catch {
+                    console.log('버튼 클릭 실패했군요');
+                }
+            }
+            buttonClick();
+    </script>
+</body>
+</html>
